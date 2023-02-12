@@ -1,0 +1,22 @@
+// we need to find the townjudge and trust power of town judge must be n-1
+// count[town judge] = n-1
+// trust(i) = [a(i),b(i)] ->  means a trust on b
+
+class Solution {
+    
+    public int findJudge(int n, int[][] trust) {
+        
+        int count[] = new int[n+1];         // create an array to calcutate the trust of other peopele on a person ie. trustpower
+        int m = trust.length;
+        for(int i=0;i<m;i++){
+            count[trust[i][1]]++;           // if person present on b(i) side, then increament its count 
+            count[trust[i][0]]--;           //  if person present on a(i) side, then decreament its count 
+        }
+        for(int i=1;i<=n;i++){           // check for 1 to n for all people
+            if(count[i]==n-1){
+                return i;               // if count[peopel] == n-1 , then he/she is a townjudge.
+            }
+        }
+        return -1;              // if no one trustpower is n-1, then return -1, means no town judge present
+    }
+}
