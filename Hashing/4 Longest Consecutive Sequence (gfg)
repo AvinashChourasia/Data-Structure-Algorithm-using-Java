@@ -1,0 +1,32 @@
+// Use hashset to solve this problem
+// we neet to calculate maxLength
+
+class Solution{
+    
+    static int findLongestConseqSubseq(int arr[], int N){
+        
+        Set<Integer> h = new HashSet<>();
+        
+        // first put all the elemnts into set data structure
+        for(int item:arr){
+            h.add(item);
+        }
+        int maxLength = 0;
+        
+        // we need to check each time for (arr[i]-1) present in the array, if yes then leave it and if no, then check for (arr[i] +1)
+        for(int i=0;i<N;i++){
+            if(!h.contains(arr[i]-1)){
+                int curItem = arr[i];
+                int count = 1;
+                while(h.contains(curItem+1)){             // each time increase the curItem value and count, so that we can check for next consecutive element
+                    count+=1;
+                    curItem+=1;
+                }
+                maxLength = Math.max(maxLength,count);
+            }
+        }
+        return maxLength;
+	}
+	
+}
+
