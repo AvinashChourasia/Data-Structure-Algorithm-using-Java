@@ -1,0 +1,31 @@
+
+// we need to find the largest subarray with zero sum
+// use hashmap to find the maxLength 
+// In hashmap -> (element,index)
+
+class GfG{
+    
+    int maxLen(int arr[], int n){
+        
+        HashMap<Integer,Integer> h = new HashMap<>();
+        int maxLength = 0;
+        int sum = 0;
+        
+        // each time add the arr[i] in sum, and check if sum present in the array or not, and if  sum=0
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            if(sum==0){                // if sum=0, means all the elment upto ith index has sum=0
+                maxLength = i+1;       // so, (maxLength = i+1)
+            }
+            if(h.containsKey(sum)){                 // if sum present then (length =  current index where sum present - previous index where sum present) 
+                int count = i-h.get(sum);
+                maxLength = Math.max(maxLength,count);
+            }
+            else{                                     // if sum not present then put sum with its index.
+                h.put(sum,i);
+            }
+        }
+        return maxLength;
+    }
+}
+
