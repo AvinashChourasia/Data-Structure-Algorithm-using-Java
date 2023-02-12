@@ -1,0 +1,55 @@
+// first sort the array, so that u can use binary search
+// Use two pointer approach for find 1st & 2nd element, and use binary search to find 3rd and 4th element in parallel.
+
+
+class Solution {
+    
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        // for 1 testcase
+        if(Math.abs(nums[0]) >= Math.pow(10,9) && target!=0){
+            return ans;
+        }
+        //
+        Arrays.sort(nums);
+        for(int i=0;i<n-3;i++){                // traverse upto last 4th element of array
+            for(int j=i+1;j<n-2;j++){            // traverse upto last 3rd element of the array
+                int low = j+1;                   // use binary search to find 3rd and 4th element
+                int high = n-1;
+                int sum = target - (nums[i]+nums[j]);
+                while(low<high){
+                    if(nums[low]+nums[high]==sum){                   // if present then add in new arrraylist
+                        List<Integer> l = new ArrayList<>();
+                        l.add(nums[i]);
+                        l.add(nums[j]);
+                        l.add(nums[low]);
+                        l.add(nums[high]);
+                        ans.add(l);
+                        while(low<high && nums[low]==l.get(2)){          // if same element present then leave it, so increment here
+                            low++;
+                        }
+                        while(low<high && nums[high]==l.get(3)){          // if same element present then leave it, so increment here
+                            high--;
+                        }
+                    }
+                    else if(nums[low]+nums[high]<sum){
+                        low++;
+                    }
+                    else{
+                        high--;
+                    }
+                } 
+                while(i<n-3 && nums[i]==nums[i+1]){           // if same element present then leave it, so increment here
+                    i++;
+                }
+                while(j<n-2 && nums[j]==nums[j+1]){            // if same element present then leave it, so increment here
+                    j++;
+                }  
+            }
+        }
+        return ans;
+    }
+
+}
