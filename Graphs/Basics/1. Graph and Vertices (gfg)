@@ -1,0 +1,14 @@
+// Given an integer n representing number of vertices. 
+// Find out how many undirected graphs (not necessarily connected) can be constructed out of a given n number of vertices.
+
+
+class Solution {
+    static long count(int n) {
+        
+        long edges = n*(n-1)/2;                       // first find no. of edges in undirected graph if 'n' no. of vertices
+        long noOfGraph = (long)Math.pow(2,edges);       // then no. of graph = (2^edges)
+        return noOfGraph;
+  }
+}
+
+
