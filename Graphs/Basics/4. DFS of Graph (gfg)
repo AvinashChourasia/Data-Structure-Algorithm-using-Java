@@ -1,0 +1,26 @@
+
+// You are given a connected undirected graph. Perform a Depth First Traversal of the graph.
+// Use a recursive approach to find the DFS traversal of the graph starting from the 0th vertex from left to right according to the graph.
+
+class Solution {
+    // Function to return a list containing the DFS traversal of the graph.
+    public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        int visited[] = new int[V];                   // create a visited array and mark the index, when visited. 
+        dfs(adj,0,ans,visited);                       // call dfs for 0
+        return ans;
+    }
+    
+    public void dfs(ArrayList<ArrayList<Integer>> adj,int node,ArrayList<Integer> ans,int visited[]){
+        visited[node] = 1;
+        ans.add(node);                               // mark as visited and put into answer arraylist
+        for(int adjNode:adj.get(node)){              // check for adjacent node of a given node, if not visited, then call dfs for adjacent node. and do this until
+            if(visited[adjNode]==0){                 // we reach the end of graph
+                dfs(adj,adjNode,ans,visited);
+            }
+        }
+    }
+    
+}
+
