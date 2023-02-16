@@ -1,0 +1,22 @@
+
+// Given the adjacency list of a bidirectional graph. 
+// Your task is to copy/clone the adjacency list for each vertex and return a new list.
+
+
+class Solution {
+    // Function to return the adjacency list for each vertex.
+    public ArrayList<ArrayList<Integer>> printGraph(
+        int V, ArrayList<ArrayList<Integer>> adj) {
+            
+            ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+            for(int i=0;i<V;i++){
+                ans.add(new ArrayList<Integer>());    // add arraylist 
+                ans.get(i).add(i); // Add starting element in arraylist from which others are connected
+                for(int j=0;j<adj.get(i).size();j++){
+                    ans.get(i).add(adj.get(i).get(j));   // Add remaining element i.e., connected.
+                }
+            }
+            return ans;
+    }
+}
+
