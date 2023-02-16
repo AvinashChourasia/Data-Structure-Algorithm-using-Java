@@ -1,0 +1,41 @@
+
+// Given an undirected graph with V vertices. 
+// Your task is to find the number of connected components.
+
+class Solution {
+    
+    static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
+        
+        ArrayList<ArrayList<Integer>> l = new ArrayList<>();         // first create adjacency list from given adjacency matrix.
+        for(int i=0;i<V;i++){
+            l.add(new ArrayList<Integer>());
+        }
+        for(int i=0;i<V;i++){
+            for(int j=0;j<adj.get(i).size();j++){
+                if(adj.get(i).get(j)==1 && i!=j){
+                    l.get(i).add(j);
+                }
+            }
+        }
+        
+        int count = 0;                            // count no. of connected components
+        int visited[] = new int[V];              // create visited array to traverse the node.
+        for(int i=0;i<V;i++){                    // call dfs for each node , if already visited then leave
+            if(visited[i]==0){
+                dfs(l,i,visited);
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public static void dfs(ArrayList<ArrayList<Integer>> l,int node,int visited[]){
+        visited[node] = 1;
+        for(int adjNode:l.get(node)){
+            if(visited[adjNode]==0){
+                dfs(l,adjNode,visited);
+            }
+        }
+    }
+    
+};
