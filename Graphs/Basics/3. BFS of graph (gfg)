@@ -1,0 +1,28 @@
+// Given a directed graph. The task is to do Breadth First Traversal of this graph starting from 0.
+
+
+class Solution {
+    // Function to return Breadth First Traversal of given graph.
+    public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        Queue<Integer> q = new LinkedList<>();
+        q.add(0);
+        int visited[] = new int[V];             // create visited array to trace the index whivh is visited by us
+        visited[0] = 1;
+        while(!q.isEmpty()){                     // traverse until queue is not empty
+            int node = q.peek();
+            q.poll();
+            ans.add(node);
+            for(int adjNode: adj.get(node)){          // find adjacent node of a given node
+                if(visited[adjNode]==0){              // if node is not visited then only traverse, put into queue then mark as visited.
+                    q.add(adjNode);
+                    visited[adjNode] = 1;
+                }
+            }
+        }
+        return ans;                 // return the bfs traversal which is being stored in ArrayList
+    }
+    
+    
+}
