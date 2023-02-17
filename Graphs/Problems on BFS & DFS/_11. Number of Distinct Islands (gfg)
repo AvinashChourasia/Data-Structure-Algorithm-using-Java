@@ -1,0 +1,53 @@
+
+public class Pair{
+    int f,s;
+    Pair(int f,int s){
+        this.f = f;
+        this.s = s;
+    }
+}
+
+class Solution {
+
+    int countDistinctIslands(int[][] grid) {
+        
+        int n = grid.length;
+        int m = grid[0].length;
+        int visited[][] = new int[n][m];
+        HashSet<ArrayList<String>> h = new HashSet<>();
+        int delrow[] = {-1,0,+1,0};
+        int delcol[] = {0,+1,0,-1};
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1 && visited[i][j]==0){
+                    bfs(grid,i,j,visited,n,m,delrow,delcol,h);
+                }
+            }
+        }
+        return h.size();
+    }
+    
+    public void bfs(int grid[][],int row0,int col0,int visited[][],int n,int m,int delrow[],int delcol[],HashSet<ArrayList<String>> h){
+        visited[row0][col0] = 1;
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(row0,col0));
+        ArrayList<String> l = new ArrayList<>();
+        while(!q.isEmpty()){
+            int row = q.peek().f;
+            int col = q.peek().s;
+            q.poll();
+            String x = Integer.toString(row-row0) +" "+ Integer.toString(col-col0);
+            l.add(x);
+            for(int i=0;i<4;i++){
+                int nrow = row + delrow[i];
+                int ncol = col + delcol[i];
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]==1 && visited[nrow][ncol]==0){
+                    q.add(new Pair(nrow,ncol));
+                    visited[nrow][ncol] = 1;
+                }
+            }
+        }
+        h.add(l);
+    }
+    
+}
